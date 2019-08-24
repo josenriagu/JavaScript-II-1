@@ -58,21 +58,37 @@ const runners = [
 // ==== Challenge 1: Use .forEach() ====
 // The event director needs both the first and last names of each runner for their running bibs. Combine both the first and last names and populate a new array called `fullNames`. This array will contain just strings.
 let fullNames = [];
+let thisArg; // optional. only needed when we need the 'this' keyword to refer to something else aside the callback's scope!
+
+runners.forEach(function (currentObject, index, array) {
+  fullNames.push(currentObject.first_name + ' ' + currentObject.last_name)
+}, thisArg)
 console.log(fullNames);
 
 // ==== Challenge 2: Use .map() ====
 // The event director needs to have all the runners' first names in uppercase because the director BECAME DRUNK WITH POWER. Populate an array called `firstNamesAllCaps`. This array will contain just strings.
-let firstNamesAllCaps = [];
+let thisArg1;
+let firstNamesAllCaps = runners.map(function (currentObject, index, array) {
+  return currentObject.first_name.toUpperCase()
+}, thisArg1);
+
+
 console.log(firstNamesAllCaps);
 
 // ==== Challenge 3: Use .filter() ====
 // The large shirts won't be available for the event due to an ordering issue. We need a filtered version of the runners array, containing only those runners with large sized shirts so they can choose a different size. This will be an array of objects.
-let runnersLargeSizeShirt = [];
+let thisArg2;
+let runnersLargeSizeShirt = runners.filter(function (currentObject, index, array) {
+return currentObject.shirt_size === 'L'
+}, thisArg2);
 console.log(runnersLargeSizeShirt);
 
 // ==== Challenge 4: Use .reduce() ====
 // The donations need to be tallied up and reported for tax purposes. Add up all the donations and save the total into a ticketPriceTotal variable.
-let ticketPriceTotal = 0;
+let initialValue = 0;
+let ticketPriceTotal = runners.reduce(function (accumulator, currentObject, index, array) {
+  return accumulator + currentObject.donation
+}, initialValue);
 console.log(ticketPriceTotal);
 
 // ==== Challenge 5: Be Creative ====
